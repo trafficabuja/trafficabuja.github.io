@@ -454,6 +454,20 @@
       height: auto;
     }
 
+    .trade-stack-shell {
+      align-items: center;
+    }
+
+    .trade-stack-shell__left,
+    .trade-stack-shell__left nav,
+    #menu-list {
+      width: 100%;
+    }
+
+    .menu-item-li {
+      width: 100%;
+    }
+
     @media (min-width: 768px) {
       .menu-mobile-image-li {
         display: none;
@@ -740,6 +754,76 @@
 
       .menu-mobile-image-li {
         margin: 0.1rem 0 0.12rem;
+      }
+    }
+
+    @media (max-width: 900px) and (orientation: landscape) {
+      #root {
+        padding-top: 0.75rem;
+      }
+
+      .trade-stack-shell {
+        padding: 0.9rem 1rem 1.1rem;
+        align-items: flex-start;
+      }
+
+      .trade-stack-shell__left {
+        width: 100%;
+      }
+
+      .trade-stack-shell__left nav,
+      #menu-list {
+        width: 100%;
+      }
+
+      #menu-list {
+        gap: 0.8rem;
+      }
+
+      .menu-item-li > div {
+        width: 100%;
+        gap: 1rem;
+      }
+
+      .menu-number {
+        margin-top: 0.25rem;
+        font-size: 1.35rem;
+      }
+
+      .menu-heading {
+        font-size: clamp(1.8rem, 5vw, 2.75rem);
+        line-height: 0.88;
+        opacity: 1 !important;
+        transform: none !important;
+        color: #111827 !important;
+        -webkit-text-stroke: 0 !important;
+        text-stroke: 0 !important;
+      }
+
+      .dark .menu-heading {
+        color: #111827 !important;
+        -webkit-text-stroke: 0 !important;
+        text-stroke: 0 !important;
+      }
+
+      .menu-mobile-image-li {
+        margin: 0.05rem 0 0.1rem;
+      }
+
+      .trade-hero {
+        padding: calc(var(--header-overlay-offset) + 0.9rem) 1rem 0.85rem;
+      }
+
+      .trade-hero__inner {
+        gap: 1rem;
+      }
+
+      .trade-hero__visual {
+        min-height: 180px;
+      }
+
+      .trade-hero__title {
+        max-width: 14ch;
       }
     }
   </style>
@@ -1195,20 +1279,21 @@
         
         // main container div with ref (flex responsive, background)
         containerEl = document.createElement('div');
-        containerEl.className = 'flex flex-col md:flex-row items-center justify-between min-h-screen w-full p-8 md:p-24 overflow-hidden transition-colors duration-500';
+        containerEl.className = 'trade-stack-shell flex flex-col md:flex-row items-center justify-between min-h-screen w-full p-8 md:p-24 overflow-hidden transition-colors duration-500';
         root.appendChild(containerEl);
         
         // LEFT SIDE: Menu
         const leftDiv = document.createElement('div');
-        leftDiv.className = 'z-20 w-full md:w-1/2';
+        leftDiv.className = 'trade-stack-shell__left z-20 w-full md:w-1/2';
         containerEl.appendChild(leftDiv);
         
         const nav = document.createElement('nav');
+        nav.className = 'w-full';
         leftDiv.appendChild(nav);
         
         const ul = document.createElement('ul');
         ul.id = 'menu-list';
-        ul.className = 'flex flex-col gap-14';
+        ul.className = 'flex w-full flex-col gap-14';
         nav.appendChild(ul);
         menuListEl = ul;
 
@@ -1216,14 +1301,14 @@
         menuItemsLis = [];
         defaultItems.forEach((item, idx) => {
           const li = document.createElement('li');
-          li.className = 'group cursor-pointer menu-item-li';
+          li.className = 'group cursor-pointer menu-item-li w-full';
           li.setAttribute('data-index', idx);
           li.setAttribute('data-image', item.image);
           li.addEventListener('mouseenter', () => onItemHover(idx));
           li.addEventListener('click', () => onItemHover(idx));
           
           const innerDiv = document.createElement('div');
-          innerDiv.className = 'flex items-start gap-6';
+          innerDiv.className = 'flex w-full items-start gap-6';
           li.appendChild(innerDiv);
           
           // number span
