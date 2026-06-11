@@ -541,9 +541,10 @@
     }
 
     .install-instructions {
-      padding: 1rem;
+      padding: 0;
       text-align: left;
       margin-top: 1rem;
+      width: 100%;
     }
 
     .install-instructions h3 {
@@ -615,10 +616,181 @@
     }
 
     .push-status {
-      font-size: 0.85rem;
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      font-weight: 400;
       margin-top: 0.5rem;
-      color: #4b5563;
+      color: #475569;
       text-align: left;
+    }
+
+    .thank-you-state {
+      display: grid;
+      gap: 0.5rem;
+      justify-items: start;
+      padding-top: 0.25rem;
+      width: 100%;
+      max-width: 34rem;
+    }
+
+    .share-state {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      width: 100%;
+    }
+
+    .thank-you-share-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: none;
+      background: transparent;
+      color: #111827;
+      padding: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      cursor: default;
+      transition: none;
+    }
+
+    .thank-you-share-button:hover,
+    .thank-you-share-button:focus-visible {
+      outline: none;
+      background: transparent;
+    }
+
+    .thank-you-share-button svg,
+    .thank-you-share-button i {
+      width: 1.8rem;
+      height: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .share-popover {
+      display: grid;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      padding-top: 0;
+      background: transparent;
+      border-radius: 1rem;
+      border: none;
+      transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.25s ease, padding-top 0.25s ease;
+      will-change: max-height, opacity;
+    }
+
+    .share-popover.show {
+      max-height: 520px; /* enough to reveal full content */
+      opacity: 1;
+      margin-top: 0.75rem; /* pushes content below */
+      padding-top: 0.75rem;
+    }
+
+    .share-popover .share-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .share-popover .share-url-shell {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 0.5rem;
+      background: rgba(243, 244, 246, 1);
+      border-radius: 1rem;
+      border: 1px solid rgba(203, 213, 225, 1);
+      padding: 0.45rem 0.65rem;
+    }
+
+    .share-popover .share-url-shell input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #0f172a;
+      font-size: 0.95rem;
+      outline: none;
+      padding: 0.75rem 0;
+    }
+
+    .share-popover .share-copy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      border-radius: 1rem;
+      border: none;
+      background: rgba(243, 244, 246, 1);
+      color: #111827;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .share-popover .share-copy-button:hover {
+      background: rgba(226, 232, 240, 1);
+    }
+
+    .thank-you-share-button {
+      margin-left: 0;
+    }
+
+    .share-popover .share-action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: transparent;
+      color: #111827;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .share-popover .share-action-button:hover {
+      background: rgba(243, 244, 246, 1);
+    }
+
+    .share-popover .share-url-shell {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 0.5rem;
+      background: rgba(243, 244, 246, 1);
+      border-radius: 1rem;
+      border: 1px solid rgba(203, 213, 225, 1);
+      padding: 0.45rem 0.65rem;
+    }
+
+    .share-popover .share-url-shell input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #0f172a;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .share-popover .share-copy-button {
+      padding: 0.65rem;
+      border-radius: 0.95rem;
+      border: none;
+      background: rgba(248, 250, 252, 1);
+      cursor: pointer;
+      color: #111827;
+    }
+
+    .share-popover .share-copy-message {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: #16a34a;
     }
 
     .trade-hero__visual {
@@ -1190,61 +1362,79 @@
       <div>
         <h2 class="support-section__title">General FAQ's</h2>
         <p class="support-section__lede">
-          Everything you need to know about Trafficabuja. Can’t find what you are looking for? Please chat with our friendly team.
+          Everything you need to know about TrafficAbuja Instantaneous Invites. Can't find what you're looking for? Please chat with our friendly team.
         </p>
         <div class="support-section__faq">
         <details class="support-section__item">
-          <summary class="support-section__summary">How do I place an order?</summary>
+          <summary class="support-section__summary">How do I get event alerts?</summary>
           <div class="support-section__answer">
-            You can transact online via the home page of our website, or social media page on Instagram, Twitter, LinkedIn, TikTok. You can also call/WhatsApp us at +2347047744310. For over-the-counter transactions, visit our office at Michael Jackson Street, Tai Solarin Ave, Gwarinpa, FCT.
+            You don't need to download an app. Just visit our website on your phone, allow notifications, and you'll start receiving real-time alerts for last-minute events, table specials, and VIP access near you. You can also follow us on Instagram, Twitter, and TikTok for public announcements.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">How do I get paid trading online?</summary>
+          <summary class="support-section__summary">How do I buy tickets through the alert?</summary>
           <div class="support-section__answer">
-            We offer direct cash delivery to your specified location, or you may arrange for a third-party logistics provider of your choice to collect the cash on your behalf.
+            When you receive an alert, tap the notification. It takes you directly to the booking page where you can reserve your spot or purchase tickets instantly via card, transfer, or USSD.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">What currencies do you trade?</summary>
+          <summary class="support-section__summary">What kind of events do you cover?</summary>
           <div class="support-section__answer">
-            We trade in crisp Naira notes, along with USD, EUR, GBP, and CAD.
+            We cover everything from concerts, club nights, and rooftop parties to comedy shows, private dinners, art exhibitions, and exclusive VIP experiences. If it's happening near you and it's worth your time, we'll alert you.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">How long does the exchange process take?</summary>
+          <summary class="support-section__summary">How do you know what's near me?</summary>
           <div class="support-section__answer">
-            Cash exchange is instant, though transfer times depend on the user's bank network and when the funds are received.
+            Your phone shares your general location only after you give permission. We never track you. We simply match your area with events happening within a short distance—so you get invites that are actually close to you.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">Can I trade currencies online for pick-up or delivery?</summary>
+          <summary class="support-section__summary">Are these events verified?</summary>
           <div class="support-section__answer">
-            You can trade online while you come to pick up the cash at our office or we can deliver cash to your designated location.
+            Yes. We work directly with event organizers, venues, and promoters. Every alert comes from a trusted source. You'll see the organizer's rating and past event reviews before you decide to go.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">Who sends currency first?</summary>
+          <summary class="support-section__summary">Can I cancel a ticket purchase?</summary>
           <div class="support-section__answer">
-            For online transactions, you have to make the payment first and we will transfer the equivalent in the preferred currency.
+            Cancellation depends on the event organizer's policy. Most last-minute deals are final, but some events allow cancellation up to 2 hours before start time. Always check the terms on the booking page.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">Can I cancel an order?</summary>
+          <summary class="support-section__summary">Do you charge extra fees?</summary>
           <div class="support-section__answer">
-            You can cancel an order as long as money hasn't exchanged hands. Once the money exchange has been made, the transaction process has started and cannot be canceled.
+            We charge a small service fee (typically 5-10% of the ticket price) to keep the lights on. What you see in the alert is the base price. The fee is shown clearly before you confirm payment.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">Do you charge?</summary>
+          <summary class="support-section__summary">What if I buy a ticket and the event is cancelled?</summary>
           <div class="support-section__answer">
-            We do not charge commissions or fees. Customers pay only the prevailing buy or sell rate for the currency.
+            If the organizer cancels, you get a full refund to your original payment method within 3-5 business days. If the event is rescheduled, your ticket remains valid for the new date.
           </div>
         </details>
         <details class="support-section__item">
-          <summary class="support-section__summary">What is the maximum amount of money I can exchange?</summary>
+          <summary class="support-section__summary">Can I get alerts for free events?</summary>
           <div class="support-section__answer">
-            There is no limit to the amount you can exchange with us.
+            Absolutely. Many of our alerts are for free entry or no-cover nights. You'll still get the notification—just tap and show up.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">How do I stop receiving alerts?</summary>
+          <div class="support-section__answer">
+            You can turn off notifications in your phone settings or visit your profile on our website to mute alerts for specific event types or time periods.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">I'm an event organizer. How do I send alerts to your users?</summary>
+          <div class="support-section__answer">
+            Contact our team via WhatsApp at +2347047744310 or write us an email at mrosagiegreat@gmail.com. We'll set up a promoter account so you can send targeted proximity alerts to people near your venue.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">Is there a limit to how many alerts I can receive?</summary>
+          <div class="support-section__answer">
+            No limit. You get as many as are relevant to your location and preferences. You can also filter by event type (parties, dining, VIP, etc.) in your settings.
           </div>
         </details>
       </div>
@@ -1357,10 +1547,102 @@
         box.style.display = "block";
         box.innerHTML = `
           <div class="thank-you-state">
-            <h3>Welcome<br>Onboard</h3>
+            <div class="share-state">
+              <div class="thank-you-share-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 8.25a2.25 2.25 0 1 0-1.95-3.6l-6.6 3.3a2.25 2.25 0 0 0 0 1.6l6.6 3.3A2.25 2.25 0 1 0 18 15.75a2.21 2.21 0 0 0-.15-.75l-6.6-3.3a2.25 2.25 0 0 0 0-1.6l6.6-3.3c.1.24.15.5.15.75z" fill="currentColor"/>
+                </svg>
+                <span>Share</span>
+              </div>
+              <div id="share-popover-thank-you" class="share-popover show" aria-hidden="false">
+                <div class="share-buttons">
+                  <button id="share-action-code" type="button" class="share-action-button" aria-label="Share code">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.6 4.3 8.2 5.7l2.8 2.8L8.2 11.3l1.4 1.4 4.2-4.2-4.2-4.2Zm4.8 15.4-1.4-1.4-2.8 2.8-1.4-1.4 4.2-4.2 4.2 4.2Zm4.8-10.6a2.25 2.25 0 1 0-1.95-3.6l-6.6 3.3a2.25 2.25 0 0 0 0 1.6l6.6 3.3a2.25 2.25 0 1 0 1.95-3.6Z"/></svg>
+                  </button>
+                  <button id="share-action-twitter" type="button" class="share-action-button" aria-label="Share to Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </button>
+                  <button id="share-action-facebook" type="button" class="share-action-button" aria-label="Share to Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                  </button>
+                  <button id="share-action-email" type="button" class="share-action-button" aria-label="Share by email">
+                    <i class="fa-solid fa-envelope"></i>
+                  </button>
+                </div>
+                <div class="share-url-shell">
+                  <input id="share-thank-you-url" type="text" value="https://trafficabuja.online" readonly>
+                  <button id="share-action-copy" type="button" class="share-copy-button" aria-label="Copy share URL">
+                    <i id="share-thank-you-copy-icon" class="fa-solid fa-copy"></i>
+                  </button>
+                </div>
+                <div id="share-copy-message" class="share-copy-message hidden">✓ Copied to clipboard!</div>
+              </div>
+            </div>
             <div id="pushStatus" class="push-status">After installing tap enable notifications</div>
           </div>
         `;
+        initThankYouSharePopover();
+      }
+
+      function initThankYouSharePopover() {
+        const popover = document.getElementById('share-popover-thank-you');
+        if (!popover) return;
+
+        popover.classList.add('show');
+        popover.setAttribute('aria-hidden', 'false');
+
+        popover.addEventListener('click', (event) => {
+          event.stopPropagation();
+        });
+
+        const codeButton = document.getElementById('share-action-code');
+        const twitterButton = document.getElementById('share-action-twitter');
+        const facebookButton = document.getElementById('share-action-facebook');
+        const emailButton = document.getElementById('share-action-email');
+        const copyButton = document.getElementById('share-action-copy');
+        const urlInput = document.getElementById('share-thank-you-url');
+        const copyMessage = document.getElementById('share-copy-message');
+        const copyIcon = document.getElementById('share-thank-you-copy-icon');
+
+        if (codeButton) {
+          codeButton.addEventListener('click', () => {
+            alert('Shared via code (demo)');
+          });
+        }
+
+        if (twitterButton && urlInput) {
+          twitterButton.addEventListener('click', () => {
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlInput.value)}`, '_blank');
+          });
+        }
+
+        if (facebookButton && urlInput) {
+          facebookButton.addEventListener('click', () => {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlInput.value)}`, '_blank');
+          });
+        }
+
+        if (emailButton && urlInput) {
+          emailButton.addEventListener('click', () => {
+            window.location.href = `mailto:?subject=${encodeURIComponent('Check this out')}&body=${encodeURIComponent(urlInput.value)}`;
+          });
+        }
+
+        if (copyButton && urlInput && copyMessage && copyIcon) {
+          copyButton.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(urlInput.value);
+              copyIcon.classList.replace('fa-copy', 'fa-check');
+              copyMessage.classList.remove('hidden');
+              setTimeout(() => {
+                copyMessage.classList.add('hidden');
+                copyIcon.classList.replace('fa-check', 'fa-copy');
+              }, 2000);
+            } catch (err) {
+              console.error(err);
+            }
+          });
+        }
       }
 
       function renderEnabledState() {
@@ -1604,6 +1886,8 @@
         setFormMode();
         closeForm();
       }
+
+
 
       window.addEventListener("appinstalled", () => {
         if (mode === "notifications") {
