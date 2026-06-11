@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -368,8 +368,15 @@
       line-height: 0.95;
       letter-spacing: -0.04em;
       font-weight: 800;
-      max-width: 10ch;
+      max-width: 14ch;
+      white-space: nowrap;
       margin-bottom: 1rem;
+    }
+
+    .trade-hero__title-emphasis {
+      font-family: "Pacifico", cursive;
+      display: inline-block;
+      letter-spacing: 0.01em;
     }
 
     .trade-hero__copy {
@@ -560,11 +567,11 @@
       align-items: flex-start;
       justify-content: flex-start;
       margin-bottom: 1rem;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 
     .install-device-steps .install-step {
-      flex: 1 1 240px;
+      flex: 1 1 0;
       margin-bottom: 0;
     }
 
@@ -754,7 +761,12 @@
         font-size: clamp(2rem, 10vw, 2.8rem);
         line-height: 1;
         max-width: 12ch;
+        white-space: normal;
         margin-bottom: 0.85rem;
+      }
+
+      .trade-hero__title-emphasis {
+        font-size: clamp(2.4rem, 12vw, 3.6rem);
       }
 
       .trade-hero__copy {
@@ -772,6 +784,14 @@
       .trade-hero__update-button {
         width: 100%;
         max-width: none;
+      }
+
+      .install-device-steps {
+        gap: 0.75rem;
+      }
+
+      .install-device-steps .install-step {
+        min-width: 0;
       }
 
       .trade-hero__visual {
@@ -1112,7 +1132,7 @@
   <section class="trade-hero" aria-label="Trade assistance section">
     <div class="trade-hero__inner">
       <div class="trade-hero__content">
-        <h1 class="trade-hero__title">24/7<br>Instant Invites</h1>
+        <h1 class="trade-hero__title"><span class="trade-hero__title-emphasis">TwoFourSeven</span><br>Instant Invites</h1>
         <p class="trade-hero__copy">
           Unbeatable deals. Unmatched proximity.<br>
           Get alerts on the best last-minute events, table specials, and VIP access.
