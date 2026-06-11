@@ -1,0 +1,2106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>trafficabuja</title>
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="trafficabuja">
+  <meta name="description" content="Experience unmatched currency exchange rates for Naira, USD, EUR, GBP & CAD. Interact with our dynamic SVG menu and get same-day cash delivery in Abuja. Trade Now.">
+  <meta name="keywords" content="currency exchange Abuja, Naira to USD, buy Euros in Abuja, forex trading Nigeria, Trafficabuja, unbeatable exchange rates, cash delivery Abuja, Gwarinpa currency exchange">
+  <meta name="author" content="Trafficabuja">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://trafficabuja.online/">
+  <link rel="icon" type="image/png" href="main.png">
+  <link rel="apple-touch-icon" href="main.png">
+
+  <!-- Open Graph / Facebook / WhatsApp / LinkedIn Meta Tags -->
+  <meta property="og:title" content="trafficabuja | Unbeatable Currency Exchange in Abuja">
+  <meta property="og:description" content="Trade USD, EUR, GBP, CAD at unbeatable rates. Same-day cash delivery in Abuja.">
+  <meta property="og:image" content="https://trafficabuja.online/main.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Trafficabuja Currency Exchange - Naira, USD, EUR, GBP, CAD">
+  <meta property="og:url" content="https://trafficabuja.online/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://trafficabuja.online/">
+  <meta name="twitter:title" content="trafficabuja">
+  <meta name="twitter:description" content="Same-day currency exchange for Naira, USD, EUR, GBP & CAD. No fees. Cash delivery available.">
+  <meta name="twitter:image" content="https://trafficabuja.online/main.png">
+  <meta name="twitter:image:alt" content="Trafficabuja - Your Corporate Mallam for Currency Exchange">
+
+  <!-- Additional SEO / Local Business -->
+  <meta name="geo.region" content="NG-FC">
+  <meta name="geo.placename" content="Abuja, Gwarinpa">
+  <meta name="geo.position" content="9.1162;7.2478">
+  <meta name="ICBM" content="9.1162, 7.2478">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Tailwind CSS v3 + basic interceptor for dark mode -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- GSAP core (required for animations) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --header-overlay-offset: clamp(88px, 11vw, 120px);
+    }
+  </style>
+  <script>
+    class TrafficAbujaHeader extends HTMLElement {
+      connectedCallback() {
+        if (this.dataset.rendered === "true") return;
+        this.dataset.rendered = "true";
+
+        const brand = this.getAttribute("brand") || "trafficabuja";
+        const pageTitle = this.getAttribute("page-title") || brand;
+        const navMode = this.getAttribute("nav-mode") || "stacked-links";
+        const aboutLabel = this.getAttribute("about-label") || "About";
+        const aboutHref = this.getAttribute("about-href") || "about.html";
+        const contactLabel = this.getAttribute("contact-label") || "Contact";
+        const contactHref = this.getAttribute("contact-href") || "#";
+        const privacyLabel = this.getAttribute("privacy-label") || "Privacy";
+        const privacyHref = this.getAttribute("privacy-href") || "#";
+        const termsLabelAttr = this.getAttribute("terms-label");
+        const termsLabel = termsLabelAttr !== null ? termsLabelAttr : "Terms";
+        const termsHref = this.getAttribute("terms-href") || "#";
+        const scrollMode = this.getAttribute("scroll-mode") || "overlay";
+        const overlayTextColor = this.getAttribute("overlay-text-color") || "#000000";
+        const overlayMutedColor = this.getAttribute("overlay-muted-color") || "rgba(0,0,0,0.72)";
+        const solidBackground = this.getAttribute("solid-background") || "rgba(255,255,255,0.96)";
+        const solidTextColor = this.getAttribute("solid-text-color") || "#000000";
+        const solidMutedColor = this.getAttribute("solid-muted-color") || "#64748b";
+
+        document.title = pageTitle;
+
+        const navMarkup = navMode === "stacked-links"
+          ? `
+            <nav class="trafficabuja-header-stacked-nav" aria-label="Header navigation">
+              <ul class="trafficabuja-header-link-row trafficabuja-header-link-row--primary">
+                <li><a class="trafficabuja-header-link trafficabuja-header-link--primary" href="${aboutHref}">${aboutLabel}</a></li>
+                <li><a class="trafficabuja-header-link trafficabuja-header-link--primary" href="${contactHref}">${contactLabel}</a></li>
+              </ul>
+              <ul class="trafficabuja-header-link-row trafficabuja-header-link-row--secondary">
+                <li><a class="trafficabuja-header-link trafficabuja-header-link--secondary" href="${privacyHref}">${privacyLabel}</a></li>
+                ${termsLabel ? `<li><a class="trafficabuja-header-link trafficabuja-header-link--secondary" href="${termsHref}">${termsLabel}</a></li>` : ""}
+              </ul>
+            </nav>
+          `
+          : `
+            <nav class="trafficabuja-header-nav" aria-label="Header navigation">
+              <a class="trafficabuja-header-link trafficabuja-header-link--primary" href="${aboutHref}">${aboutLabel}</a>
+              <a class="trafficabuja-header-link trafficabuja-header-link--primary" href="${contactHref}">${contactLabel}</a>
+            </nav>
+          `;
+
+        this.innerHTML = `
+          <style>
+            :host {
+              display: block;
+            }
+
+            .trafficabuja-header-shell {
+              --trafficabuja-header-text-color: ${solidTextColor};
+              --trafficabuja-header-muted-color: ${solidMutedColor};
+              width: 100%;
+              padding: 1rem 4rem 0;
+              position: relative;
+              z-index: 1000;
+              transition: background-color 0.25s ease, box-shadow 0.25s ease, backdrop-filter 0.25s ease, border-color 0.25s ease;
+            }
+
+            .trafficabuja-header-shell--overlay {
+              --trafficabuja-header-text-color: ${overlayTextColor};
+              --trafficabuja-header-muted-color: ${overlayMutedColor};
+              position: fixed;
+              top: 0;
+              left: 0;
+              right: 0;
+              background: transparent;
+            }
+
+            .trafficabuja-header-shell--overlay.trafficabuja-header-shell--scrolled {
+              --trafficabuja-header-text-color: ${solidTextColor};
+              --trafficabuja-header-muted-color: ${solidMutedColor};
+              background: ${solidBackground};
+              backdrop-filter: blur(12px);
+              -webkit-backdrop-filter: blur(12px);
+              box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+              border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            }
+
+            .trafficabuja-header-inner {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 2rem;
+              padding: 0.5rem 0;
+              margin: 0 auto 0.9rem;
+            }
+
+            .trafficabuja-header-wordmark {
+              flex: 0 1 auto;
+              text-align: left;
+              font-family: "Pacifico", cursive;
+              font-size: clamp(1.8rem, 4vw, 3.3rem);
+              line-height: 1;
+              color: var(--trafficabuja-header-text-color);
+              letter-spacing: 0.01em;
+              white-space: nowrap;
+              margin-right: auto;
+              transition: color 0.2s ease;
+            }
+
+            .trafficabuja-header-nav,
+            .trafficabuja-header-stacked-nav {
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              margin-left: auto;
+            }
+
+            .trafficabuja-header-stacked-nav {
+              flex-direction: column;
+              align-items: flex-end;
+              gap: 0.25rem;
+            }
+
+            .trafficabuja-header-link-row {
+              list-style: none;
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              margin: 0;
+              padding: 0;
+            }
+
+            .trafficabuja-header-link-row--primary {
+              gap: 1rem;
+            }
+
+            .trafficabuja-header-link-row--secondary {
+              gap: 1.5rem;
+              padding-right: 0.2rem;
+            }
+
+            .trafficabuja-header-link {
+              color: var(--trafficabuja-header-text-color);
+              text-decoration: none;
+              transition: color 0.2s ease, background-color 0.2s ease;
+              border-radius: 999px;
+              padding: 0.15rem 0.2rem;
+              white-space: nowrap;
+            }
+
+            .trafficabuja-header-link:hover,
+            .trafficabuja-header-link:focus-visible {
+              color: #5865f2;
+              outline: none;
+            }
+
+            .trafficabuja-header-link--primary {
+              font-size: 0.92rem;
+              font-weight: 500;
+            }
+
+            .trafficabuja-header-link--secondary {
+              font-size: 0.86rem;
+              color: var(--trafficabuja-header-muted-color);
+            }
+
+            @media (max-width: 768px) {
+              .trafficabuja-header-shell {
+                padding: 0.85rem 1.2rem 0;
+              }
+
+              .trafficabuja-header-inner {
+                gap: 1rem;
+                flex-wrap: wrap;
+              }
+
+              .trafficabuja-header-stacked-nav {
+                align-items: flex-start;
+              }
+            }
+          </style>
+          <div class="trafficabuja-header-shell${scrollMode === "overlay" ? " trafficabuja-header-shell--overlay" : ""}">
+            <div class="trafficabuja-header-inner">
+              <div class="trafficabuja-header-wordmark" aria-label="${brand} brand name">${brand}</div>
+              ${navMarkup}
+            </div>
+          </div>
+        `;
+
+        if (scrollMode === "overlay") {
+          const shell = this.querySelector(".trafficabuja-header-shell");
+          const syncHeaderScrollState = () => {
+            shell.classList.toggle("trafficabuja-header-shell--scrolled", window.scrollY > 50);
+          };
+
+          syncHeaderScrollState();
+          window.addEventListener("scroll", syncHeaderScrollState, { passive: true });
+        }
+      }
+    }
+
+    customElements.define("trafficabuja-header", TrafficAbujaHeader);
+  </script>
+  <!-- Custom config to override Tailwind defaults slightly (keep dark mode functional) -->
+  <style>
+    /* additional fine-tuning for text-stroke on dark mode & smoother transitions */
+    body {
+      background-color: #ffffff;
+      transition: background-color 0.2s ease;
+    }
+    /* simulate dark class for .dark toggle? We'll rely on system? 
+       Actually component uses dark: variant, so we add class "dark" to html if needed.
+       For demo we simply let Tailwind dark mode rely on "dark" class on parent container.
+       We'll add a small script to toggle dark/light for demonstration? Not required by spec but component
+       already supports both. We'll enable system default / add a tiny toggle to showcase both states.
+       But to be faithful, we keep exactly component behavior without extra placeholders.
+       However we need to ensure text-stroke works for dark mode. */
+    .dark .menu-heading:not(.text-zinc-950) {
+      color: transparent;
+      -webkit-text-stroke: 1.5px #52525b;
+      text-stroke: 1.5px #52525b;
+    }
+    /* ensure smooth scaling for SVG paths, also hidden initial scale set via GSAP */
+    .path {
+      transform-origin: 50% 50%;
+    }
+    /* fix for any overflow & squared corners */
+    svg {
+      display: block;
+    }
+    /* For full viewport height and smooth transitions */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #root {
+      padding-top: clamp(0.75rem, 1.5vw, 1.5rem);
+    }
+
+    #support-section,
+    #footer {
+      scroll-margin-top: calc(var(--header-overlay-offset) + 1rem);
+    }
+
+    .trade-hero {
+      position: relative;
+      padding: calc(var(--header-overlay-offset) + clamp(2rem, 5vw, 5rem)) clamp(2rem, 6vw, 6rem) clamp(1rem, 2vw, 2rem);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(244, 114, 182, 0.08), transparent 30%),
+        radial-gradient(circle at 82% 18%, rgba(59, 130, 246, 0.06), transparent 30%),
+        linear-gradient(180deg, #fffefb 0%, #ffffff 78%, #ffffff 100%);
+      overflow: hidden;
+    }
+
+    .trade-hero::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -10% -10%;
+      height: 28%;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.16) 0%, rgba(96, 165, 250, 0.08) 28%, rgba(96, 165, 250, 0) 70%);
+      filter: blur(70px);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .trade-hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 170px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.82) 45%, #ffffff 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      pointer-events: none;
+    }
+
+    .trade-hero__inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: none;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      align-items: center;
+      gap: clamp(2rem, 5vw, 5rem);
+    }
+
+    .trade-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      color: #9a3412;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      width: fit-content;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    .trade-hero__title {
+      color: #111827;
+      font-size: clamp(2.4rem, 5vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      max-width: 10ch;
+      margin-bottom: 1rem;
+    }
+
+    .trade-hero__copy {
+      max-width: 34rem;
+      color: #475569;
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+
+    .trade-hero__lead-capture {
+      width: min(100%, 34rem);
+      margin-bottom: 0;
+    }
+
+    .trade-hero__actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      width: min(100%, 34rem);
+      margin-bottom: 1.15rem;
+    }
+
+    .trade-hero__lead-capture-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .trade-hero__button-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.9rem;
+      width: 100%;
+    }
+
+    .trade-hero__lead-panel {
+      display: grid;
+      gap: 1rem;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(1rem);
+      margin-bottom: 0;
+      transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.35s ease, margin-bottom 0.35s ease;
+      will-change: max-height, opacity, transform;
+    }
+
+    .trade-hero__lead-capture.is-expanded .trade-hero__lead-panel {
+      opacity: 1;
+      transform: translateY(0);
+      margin-bottom: 1rem;
+    }
+
+    .trade-hero__lead-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .trade-hero__lead-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .trade-hero__lead-field--full {
+      grid-column: 1 / -1;
+    }
+
+    .trade-hero__lead-label {
+      color: #334155;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .trade-hero__lead-input {
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.42);
+      background: rgba(255, 255, 255, 0.95);
+      color: #0f172a;
+      padding: 0.9rem 1rem;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .trade-hero__lead-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .trade-hero__lead-input:focus {
+      border-color: rgba(59, 130, 246, 0.7);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+    }
+
+    .trade-hero__update-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.95rem 1.5rem;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #000000, #1f1f1f);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+    }
+
+    .trade-hero__update-button:hover,
+    .trade-hero__update-button:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .trade-hero__update-button.is-submit {
+      background: linear-gradient(135deg, #111111, #000000);
+    }
+
+    .trade-hero__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1.5rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #000000, #1f1f1f);
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .trade-hero__cta-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.1rem;
+      height: 1.1rem;
+      flex: 0 0 auto;
+    }
+
+    .trade-hero__cta-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .trade-hero__cta:hover,
+    .trade-hero__cta:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .install-instructions {
+      padding: 1rem;
+      text-align: left;
+      margin-top: 1rem;
+    }
+
+    .install-instructions h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+
+    .install-step {
+      background: transparent;
+      padding: 0;
+      width: 100%;
+      color: #0f172a;
+      text-align: left;
+      margin-bottom: 0.75rem;
+    }
+
+    .install-device-steps {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .install-device-steps .install-step {
+      flex: 1 1 240px;
+      margin-bottom: 0;
+    }
+
+    .install-step strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .thank-you-state {
+      display: grid;
+      gap: 0.5rem;
+      justify-items: start;
+      padding-top: 0.25rem;
+    }
+
+    .thank-you-state h3 {
+      font-size: clamp(2.1rem, 4.8vw, 4.2rem);
+      line-height: 0.95;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .thank-you-state p {
+      margin: 0;
+      color: #475569;
+    }
+
+    .enable-notif-btn {
+      background: #0066cc;
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 0.5rem 0;
+    }
+
+    .push-status {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      color: #4b5563;
+      text-align: left;
+    }
+
+    .trade-hero__visual {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 2rem;
+      padding: clamp(1rem, 2vw, 1.5rem);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.9));
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+    }
+
+    .trade-hero__visual::before {
+      content: "";
+      position: absolute;
+      inset: 0.9rem;
+      border-radius: 1.4rem;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.75));
+      pointer-events: none;
+    }
+
+    .trade-hero__image {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      height: auto;
+      filter: drop-shadow(0 26px 40px rgba(15, 23, 42, 0.18));
+      object-fit: contain;
+    }
+
+    .menu-mobile-image-li {
+      width: 100%;
+      list-style: none;
+      margin: 0.5rem 0 0.35rem;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .menu-mobile-image-li.is-active-preview {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .menu-mobile-image-li.is-dimmed-preview {
+      opacity: 0.55;
+      transform: scale(0.99);
+    }
+
+    .menu-mobile-image-shell {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      box-shadow: none;
+    }
+
+    .menu-mobile-image-shell svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .trade-stack-shell {
+      align-items: center;
+    }
+
+    .trade-stack-shell__left,
+    .trade-stack-shell__left nav,
+    #menu-list {
+      width: 100%;
+    }
+
+    .menu-item-li {
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .menu-mobile-image-li {
+        display: none;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .trade-hero__button-row {
+        width: 100%;
+      }
+
+      .trade-hero__lead-capture {
+        width: min(100%, 34rem);
+        max-width: 34rem;
+      }
+
+      .trade-hero__update-button,
+      .trade-hero__cta {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .trade-hero__inner {
+        grid-template-columns: 1fr;
+      }
+
+      .trade-hero__visual {
+        min-height: 320px;
+        order: -1;
+      }
+
+      .trade-hero__title {
+        max-width: 12ch;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --header-overlay-offset: clamp(78px, 16vw, 96px);
+      }
+
+      .trade-hero {
+        padding: calc(var(--header-overlay-offset) + 2.15rem) 1rem 0.9rem;
+      }
+
+      .trade-hero::after {
+        height: 110px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+
+      .trade-hero__inner {
+        gap: 2.2rem;
+      }
+
+      .trade-hero__content {
+        text-align: left;
+      }
+
+      .trade-hero__title {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+        line-height: 1;
+        max-width: 12ch;
+        margin-bottom: 0.85rem;
+      }
+
+      .trade-hero__copy {
+        font-size: 0.98rem;
+        line-height: 1.65;
+        margin-bottom: 1.25rem;
+        max-width: 100%;
+      }
+
+      .trade-hero__cta {
+        width: 100%;
+        max-width: none;
+      }
+
+      .trade-hero__update-button {
+        width: 100%;
+        max-width: none;
+      }
+
+      .trade-hero__visual {
+        min-height: 112px;
+        padding: 0;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+      }
+
+      .trade-hero__visual::before {
+        inset: 14% 9%;
+        border-radius: 1.7rem;
+        transform: rotate(-5deg);
+        box-shadow: none;
+      }
+
+      .trade-hero__image {
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+        transform: rotate(-5deg) scale(1.3);
+        border-radius: 1.35rem;
+        box-shadow: none;
+        object-fit: cover;
+        object-position: center 48%;
+      }
+
+      #menu-list {
+        gap: 1.5rem;
+      }
+
+      .menu-mobile-image-li {
+        margin: 0.15rem 0 0.2rem;
+      }
+    }
+
+    .site-footer {
+      padding: clamp(2rem, 4vw, 3rem) clamp(1rem, 5vw, 5rem) clamp(2rem, 4vw, 3rem);
+      background: #ffffff;
+      border-top: 0;
+      margin-top: clamp(2rem, 4vw, 4rem);
+    }
+
+    .site-footer__inner {
+      width: 100%;
+      max-width: none;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .site-footer__content {
+      width: 100%;
+      max-width: 760px;
+      text-align: center;
+      display: grid;
+      justify-items: center;
+      gap: 1rem;
+    }
+
+    .site-footer__brand {
+      color: #0f172a;
+      font-size: clamp(1.8rem, 4vw, 3.3rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      font-weight: 400;
+      font-family: "Pacifico", cursive;
+    }
+
+    .site-footer__meta {
+      display: grid;
+      gap: 0.35rem;
+      color: #334155;
+      font-size: 1rem;
+      line-height: 1.75;
+      justify-items: center;
+    }
+
+    .site-footer__contact-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem 1rem;
+      align-items: center;
+    }
+
+    .site-footer__contact-link {
+      color: #0f172a;
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    .site-footer__contact-link:hover,
+    .site-footer__contact-link:focus-visible {
+      color: #1d4ed8;
+      outline: none;
+    }
+
+    .site-footer__copy {
+      max-width: 44rem;
+      color: #475569;
+      font-size: 0.98rem;
+      line-height: 1.8;
+    }
+
+    .site-footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem 1.25rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    .site-footer__links a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-footer__links a:hover,
+    .site-footer__links a:focus-visible {
+      color: #1d4ed8;
+      outline: none;
+    }
+
+    .support-section {
+      padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 5vw, 5rem) 0;
+      background: #ffffff;
+    }
+
+    .support-section__inner {
+      width: 100%;
+      max-width: none;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .support-section__title {
+      color: #0f172a;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 800;
+      margin-bottom: 0.45rem;
+      max-width: 12ch;
+    }
+
+    .support-section__lede {
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 42rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .support-section__faq {
+      display: grid;
+      gap: 0;
+    }
+
+    .support-section__item {
+      border-top: 0;
+    }
+
+    .support-section__summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    .support-section__summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .support-section__summary span {
+      display: none;
+    }
+
+    .support-section__answer {
+      padding: 0 0 1rem;
+      color: #475569;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 768px) {
+      .support-section__title {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .support-section {
+        padding-top: 2rem;
+      }
+
+      .site-footer {
+        padding-top: 1.25rem;
+        padding-bottom: 1.5rem;
+        margin-top: 1.6rem;
+      }
+
+      .site-footer__brand {
+        font-size: clamp(1.7rem, 7vw, 2.2rem);
+      }
+
+      .site-footer__content {
+        gap: 0.85rem;
+      }
+
+      #root {
+        padding-top: 2rem;
+      }
+
+      .support-section__title {
+        margin-bottom: 0.35rem;
+      }
+
+      .support-section__lede {
+        margin-bottom: 0.15rem;
+      }
+
+      #menu-list {
+        gap: 1rem;
+      }
+
+      .menu-mobile-image-li {
+        margin: 0.1rem 0 0.12rem;
+      }
+    }
+
+    @media (max-width: 900px) and (orientation: landscape) {
+      #root {
+        padding-top: 0.75rem;
+      }
+
+      .trade-stack-shell {
+        padding: 0.9rem 1rem 1.1rem;
+        align-items: flex-start;
+      }
+
+      .trade-stack-shell__left {
+        width: 100%;
+      }
+
+      .trade-stack-shell__left nav,
+      #menu-list {
+        width: 100%;
+      }
+
+      #menu-list {
+        gap: 0.8rem;
+      }
+
+      .menu-item-li > div {
+        width: 100%;
+        gap: 1rem;
+      }
+
+      .menu-number {
+        margin-top: 0.25rem;
+        font-size: 1.35rem;
+      }
+
+      .menu-heading {
+        font-size: clamp(1.8rem, 5vw, 2.75rem);
+        line-height: 0.88;
+        opacity: 1 !important;
+        transform: none !important;
+        color: #111827 !important;
+        -webkit-text-stroke: 0 !important;
+        text-stroke: 0 !important;
+      }
+
+      .dark .menu-heading {
+        color: #111827 !important;
+        -webkit-text-stroke: 0 !important;
+        text-stroke: 0 !important;
+      }
+
+      .menu-mobile-image-li {
+        margin: 0.05rem 0 0.1rem;
+      }
+
+      .trade-hero {
+        padding: calc(var(--header-overlay-offset) + 0.9rem) 1rem 0.85rem;
+      }
+
+      .trade-hero__inner {
+        gap: 1rem;
+      }
+
+      .trade-hero__visual {
+        min-height: 180px;
+        padding: 0.7rem;
+      }
+
+      .trade-hero__title {
+        max-width: 14ch;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+  <trafficabuja-header
+    logo-src="logo.png"
+    brand="trafficabuja"
+    page-title="trafficabuja"
+    personalize-href="overlay.html"
+    nav-mode="stacked-links"
+    scroll-mode="overlay"
+    overlay-text-color="#000000"
+    overlay-muted-color="rgba(0,0,0,0.72)"
+    solid-background="rgba(255,255,255,0.96)"
+    solid-text-color="#000000"
+    solid-muted-color="#64748b"
+    products-href="signin.html"
+    about-label="FAQ"
+    about-href="#support-section"
+    blog-href="#"
+    contact-href="#footer"
+    privacy-label="👋 Hi, Welcome"
+    privacy-href="#"
+    terms-label=""
+    terms-href="#"
+  ></trafficabuja-header>
+  <section class="trade-hero" aria-label="Trade assistance section">
+    <div class="trade-hero__inner">
+      <div class="trade-hero__content">
+        <h1 class="trade-hero__title">24/7<br>Instant Invites</h1>
+        <p class="trade-hero__copy">
+          Unbeatable deals. Unmatched proximity.<br>
+          Get alerts on the best last-minute events, table specials, and VIP access.
+        </p>
+        <div class="trade-hero__actions">
+          <div class="trade-hero__lead-capture-shell" id="leadCaptureContainer">
+            <form class="trade-hero__lead-capture" id="updateCaptureForm" novalidate>
+              <div class="trade-hero__lead-panel" id="updateLeadPanel" aria-hidden="true">
+                <div class="trade-hero__lead-fields">
+                  <label class="trade-hero__lead-field">
+                    <span class="trade-hero__lead-label">Name</span>
+                    <input class="trade-hero__lead-input" id="updateName" name="name" type="text" placeholder="Your full name" autocomplete="name" required>
+                  </label>
+                  <label class="trade-hero__lead-field">
+                    <span class="trade-hero__lead-label">Phone Number</span>
+                    <input class="trade-hero__lead-input" id="updatePhone" name="phone" type="tel" placeholder="08012345678" autocomplete="tel" required>
+                  </label>
+                  <label class="trade-hero__lead-field trade-hero__lead-field--full">
+                    <span class="trade-hero__lead-label">Email</span>
+                    <input class="trade-hero__lead-input" id="updateEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                  </label>
+                </div>
+              </div>
+            </form>
+            <div class="install-instructions" id="installInstructions" style="display:none;"></div>
+            <div class="trade-hero__button-row">
+              <button class="trade-hero__update-button" id="updateToggleButton" type="button" aria-expanded="false" aria-controls="updateLeadPanel">Never Miss an Update</button>
+              <a class="trade-hero__cta" href="#" onclick="openWhatsApp(); return false;">
+                <span class="trade-hero__cta-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="">
+                    <path fill="currentColor" d="M12 2C6.49 2 2 6.14 2 11.23c0 2.06.7 4.01 1.97 5.67L3 22l5.23-1.36c1.45.72 3.07 1.1 4.77 1.1 5.51 0 10-4.14 10-9.23S17.51 2 12 2zm0 16.88c-1.58 0-3.11-.4-4.43-1.16l-.32-.19-3.1.8.83-2.87-.21-.31a7.85 7.85 0 0 1-1.29-4.22C3.48 6.99 7.02 4 12 4s8.52 2.99 8.52 7.13S16.98 18.88 12 18.88zm4.12-5.56c-.23-.12-1.38-.68-1.6-.76-.22-.08-.38-.12-.54.12-.16.23-.62.76-.76.92-.14.16-.28.18-.51.06-.23-.12-.98-.36-1.87-1.15-.69-.62-1.15-1.39-1.28-1.62-.13-.23-.01-.35.1-.47.1-.1.23-.27.35-.4.12-.13.16-.23.24-.39.08-.16.04-.31-.02-.43-.06-.12-.54-1.28-.74-1.75-.2-.47-.4-.41-.54-.41h-.46c-.16 0-.43.06-.65.31-.22.25-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.38-.56 1.57-1.1.19-.54.19-1 .13-1.1-.06-.1-.21-.16-.44-.27z"/>
+                  </svg>
+                </span>
+                <span>Trade Now</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="trade-hero__visual" aria-hidden="true">
+        <img class="trade-hero__image" src="Event.jpeg" alt="Trade assistance illustration">
+      </div>
+    </div>
+  </section>
+  <!-- 
+    This is a full, self-contained implementation of the "Connoisseur Stack Interactor" component.
+    It replicates the exact React logic in plain HTML/JS, using GSAP, Tailwind CSS, and the SVG clipPath animation.
+    Fully interactive: hover over menu items triggers GSAP shape loops & image switching.
+    Uses local images from the project folder.
+  -->
+  <div id="root" class="w-full min-h-screen"></div>
+  <section class="support-section" id="support-section" aria-label="Support and FAQ">
+    <div class="support-section__inner">
+      <div>
+        <h2 class="support-section__title">General FAQ's</h2>
+        <p class="support-section__lede">
+          Everything you need to know about Trafficabuja. Can’t find what you are looking for? Please chat with our friendly team.
+        </p>
+        <div class="support-section__faq">
+        <details class="support-section__item">
+          <summary class="support-section__summary">How do I place an order?</summary>
+          <div class="support-section__answer">
+            You can transact online via the home page of our website, or social media page on Instagram, Twitter, LinkedIn, TikTok. You can also call/WhatsApp us at +2347047744310. For over-the-counter transactions, visit our office at Michael Jackson Street, Tai Solarin Ave, Gwarinpa, FCT.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">How do I get paid trading online?</summary>
+          <div class="support-section__answer">
+            We offer direct cash delivery to your specified location, or you may arrange for a third-party logistics provider of your choice to collect the cash on your behalf.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">What currencies do you trade?</summary>
+          <div class="support-section__answer">
+            We trade in crisp Naira notes, along with USD, EUR, GBP, and CAD.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">How long does the exchange process take?</summary>
+          <div class="support-section__answer">
+            Cash exchange is instant, though transfer times depend on the user's bank network and when the funds are received.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">Can I trade currencies online for pick-up or delivery?</summary>
+          <div class="support-section__answer">
+            You can trade online while you come to pick up the cash at our office or we can deliver cash to your designated location.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">Who sends currency first?</summary>
+          <div class="support-section__answer">
+            For online transactions, you have to make the payment first and we will transfer the equivalent in the preferred currency.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">Can I cancel an order?</summary>
+          <div class="support-section__answer">
+            You can cancel an order as long as money hasn't exchanged hands. Once the money exchange has been made, the transaction process has started and cannot be canceled.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">Do you charge?</summary>
+          <div class="support-section__answer">
+            We do not charge commissions or fees. Customers pay only the prevailing buy or sell rate for the currency.
+          </div>
+        </details>
+        <details class="support-section__item">
+          <summary class="support-section__summary">What is the maximum amount of money I can exchange?</summary>
+          <div class="support-section__answer">
+            There is no limit to the amount you can exchange with us.
+          </div>
+        </details>
+      </div>
+      </div>
+    </div>
+  </section>
+  <footer class="site-footer" id="footer" aria-label="Contact and information footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <div class="site-footer__brand">trafficabuja</div>
+        <div class="site-footer__meta">
+          <div class="site-footer__contact-line">
+            <span>070 4774 4310 │ 080 6430 8947</span>
+          </div>
+          <a class="site-footer__contact-link" href="mailto:mrosagiegreat@gmail.com">mrosagiegreat@gmail.com</a>
+          <div>Opening Hours</div>
+          <div>8:00AM - 6:00PM</div>
+          <div>Michael Jackson Street, Tai Solarin Ave, Gwarinpa, FCT</div>
+          <p class="site-footer__copy">
+            We are a financial service solutions chain that specializes in providing currency exchange services to individuals and corporate bodies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAspxZcsnSzRRgFbxQFWhLwrNITkKbmjbQ",
+      authDomain: "trafficabuja-2eea6.firebaseapp.com",
+      projectId: "trafficabuja-2eea6"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    const db = firebase.firestore();
+    const VAPID_PUBLIC_KEY = "BM4bGsf5YXSZIq1MSwSGshtW4im3orcp8e8Oe0g1BXMpOFLPKLBZF-gr4nZn_acI2LCo5YSUmtu0TXG-udyGXaw";
+
+    window.openWhatsApp = function() {
+      const phone = "2347047744310";
+      const message = "Hello TrafficAbuja, I'm interested in trading currencies. Please assist me with your current exchange rates for USD, EUR, GBP, and CAD. Thanks!";
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+    };
+
+    (function() {
+      const container = document.getElementById("leadCaptureContainer");
+      const form = document.getElementById("updateCaptureForm");
+      const panel = document.getElementById("updateLeadPanel");
+      const button = document.getElementById("updateToggleButton");
+      const nameInput = document.getElementById("updateName");
+      const phoneInput = document.getElementById("updatePhone");
+      const emailInput = document.getElementById("updateEmail");
+
+      if (!container || !form || !panel || !button || !nameInput || !phoneInput || !emailInput) {
+        return;
+      }
+
+      let isOpen = false;
+      let mode = "form";
+      let pendingLeadData = null;
+      let installBox = null;
+      let swRegistration = null;
+
+      function urlBase64ToUint8Array(base64String) {
+        const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+        const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+        for (let i = 0; i < rawData.length; ++i) {
+          outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
+      }
+
+      function getStatusEl() {
+        return document.getElementById("pushStatus");
+      }
+
+      function supportsServiceWorkerOnThisOrigin() {
+        return window.location.protocol !== "file:" && window.location.origin !== "null";
+      }
+
+      function isAppInstalled() {
+        return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+      }
+
+      function ensureInstallBox() {
+        if (!installBox) {
+          installBox = document.getElementById("installInstructions");
+        }
+        return installBox;
+      }
+
+      function renderInstallPrompt() {
+        const box = ensureInstallBox();
+        box.style.display = "block";
+        box.innerHTML = `
+          <div class="install-device-steps">
+            <div class="install-step"><strong>Android</strong><br>Tap ⋮ → <strong>Install app</strong></div>
+            <div class="install-step"><strong>iPhone</strong><br>Tap Share ↑ <strong>Add to Home Screen</strong></div>
+          </div>
+          <div id="pushStatus" class="push-status">After installing tap enable notifications</div>
+        `;
+      }
+
+      function renderThankYouState() {
+        const box = ensureInstallBox();
+        box.style.display = "block";
+        box.innerHTML = `
+          <div class="thank-you-state">
+            <h3>Welcome<br>Onboard</h3>
+            <div id="pushStatus" class="push-status">After installing tap enable notifications</div>
+          </div>
+        `;
+      }
+
+      function renderEnabledState() {
+        const box = ensureInstallBox();
+        box.style.display = "block";
+        box.innerHTML = `
+          <h3>✅ Notifications Enabled</h3>
+          <p>You will receive rate alerts instantly.</p>
+        `;
+        form.style.display = "none";
+        button.disabled = true;
+        button.classList.remove("is-submit");
+        button.textContent = "✅ Notifications Enabled";
+        button.setAttribute("aria-expanded", "false");
+        panel.setAttribute("aria-hidden", "true");
+        panel.style.maxHeight = "0px";
+        isOpen = false;
+        mode = "enabled";
+      }
+
+      function setFormMode() {
+        mode = "form";
+        form.style.display = "";
+        renderInstallPrompt();
+        button.disabled = false;
+        button.classList.remove("is-submit");
+        button.textContent = "Never Miss an Update";
+      }
+
+      function setNotificationMode() {
+        mode = "notifications";
+        form.style.display = "none";
+        button.disabled = false;
+        button.classList.remove("is-submit");
+        button.textContent = "Enable Notifications";
+        button.setAttribute("aria-expanded", "false");
+        panel.setAttribute("aria-hidden", "true");
+        panel.style.maxHeight = "0px";
+        isOpen = false;
+        renderThankYouState();
+      }
+
+      function syncPanelHeight() {
+        if (!isOpen || mode !== "form") {
+          panel.style.maxHeight = "0px";
+          return;
+        }
+        panel.style.maxHeight = `${panel.scrollHeight}px`;
+      }
+
+      function openForm() {
+        if (mode !== "form") return;
+        isOpen = true;
+        if (installBox) {
+          installBox.style.display = "none";
+        }
+        form.classList.add("is-expanded");
+        button.classList.add("is-submit");
+        button.textContent = "Submit";
+        button.setAttribute("aria-expanded", "true");
+        panel.setAttribute("aria-hidden", "false");
+        syncPanelHeight();
+        window.requestAnimationFrame(() => {
+          nameInput.focus();
+        });
+      }
+
+      function closeForm() {
+        isOpen = false;
+        form.classList.remove("is-expanded");
+        if (mode === "form") {
+          button.classList.remove("is-submit");
+          button.textContent = "Never Miss an Update";
+          button.setAttribute("aria-expanded", "false");
+        }
+        panel.setAttribute("aria-hidden", "true");
+        syncPanelHeight();
+      }
+
+      async function saveLeadToFirestore(leadData) {
+        await db.collection("leads").add({
+          ...leadData,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      }
+
+      async function subscribeToPush() {
+        const statusEl = getStatusEl();
+        if (statusEl) {
+          statusEl.textContent = "Requesting permission...";
+        }
+
+        if (!supportsServiceWorkerOnThisOrigin()) {
+          if (statusEl) {
+            statusEl.textContent = "Notifications need localhost or https. This page is currently opened from a local file.";
+          }
+          return false;
+        }
+
+        if (!("Notification" in window)) {
+          if (statusEl) statusEl.textContent = "Notifications are not supported in this browser.";
+          return false;
+        }
+
+        if (!isAppInstalled()) {
+          if (statusEl) {
+            statusEl.textContent = "Please install the app first, then tap the button again to enable notifications.";
+          }
+          return false;
+        }
+
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted") {
+          if (statusEl) statusEl.textContent = "Permission denied.";
+          return false;
+        }
+
+        try {
+          if (!swRegistration) {
+            swRegistration = await navigator.serviceWorker.register("./sw.js");
+          }
+          const readyRegistration = await navigator.serviceWorker.ready;
+          let subscription = await readyRegistration.pushManager.getSubscription();
+          if (!subscription) {
+            subscription = await readyRegistration.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+            });
+          }
+
+          if (pendingLeadData) {
+            await db.collection("subscriptions").add({
+              endpoint: subscription.endpoint,
+              keys: {
+                p256dh: btoa(String.fromCharCode(...new Uint8Array(subscription.getKey("p256dh")))),
+                auth: btoa(String.fromCharCode(...new Uint8Array(subscription.getKey("auth"))))
+              },
+              leadName: pendingLeadData.name,
+              leadPhone: pendingLeadData.phone,
+              leadEmail: pendingLeadData.email,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          }
+
+          renderEnabledState();
+          return true;
+        } catch (err) {
+          console.error(err);
+          if (statusEl) statusEl.textContent = `Error: ${err.message}`;
+          return false;
+        }
+      }
+
+      async function submitUpdateLead() {
+        if (!form.reportValidity()) {
+          return false;
+        }
+
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const email = emailInput.value.trim();
+        pendingLeadData = { name, phone, email };
+
+        try {
+          await saveLeadToFirestore(pendingLeadData);
+          form.reset();
+          closeForm();
+          setNotificationMode();
+          return true;
+        } catch (err) {
+          console.error(err);
+          alert("Could not save. Try again.");
+          return false;
+        }
+      }
+
+      button.addEventListener("click", async () => {
+        if (mode === "enabled") {
+          return;
+        }
+
+        if (mode === "notifications") {
+          await subscribeToPush();
+          return;
+        }
+
+        if (!isOpen) {
+          openForm();
+          return;
+        }
+
+        await submitUpdateLead();
+      });
+
+      form.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && isOpen && mode === "form") {
+          event.preventDefault();
+          submitUpdateLead();
+        }
+      });
+
+      panel.addEventListener("transitionend", () => {
+        if (isOpen && mode === "form") {
+          panel.style.maxHeight = `${panel.scrollHeight}px`;
+        }
+      });
+
+      async function checkExistingSubscription() {
+        if (!supportsServiceWorkerOnThisOrigin()) {
+          return false;
+        }
+
+        if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+          return false;
+        }
+
+        if (!swRegistration) {
+          swRegistration = await navigator.serviceWorker.register("./sw.js");
+        }
+
+        const readyRegistration = await navigator.serviceWorker.ready;
+        const subscription = await readyRegistration.pushManager.getSubscription();
+        return !!subscription;
+      }
+
+      async function init() {
+        try {
+          if (supportsServiceWorkerOnThisOrigin() && "serviceWorker" in navigator) {
+            swRegistration = await navigator.serviceWorker.register("./sw.js");
+            await navigator.serviceWorker.ready;
+            const alreadySubscribed = await checkExistingSubscription();
+            if (alreadySubscribed) {
+              renderEnabledState();
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Service worker setup failed", err);
+        }
+
+        setFormMode();
+        closeForm();
+      }
+
+      window.addEventListener("appinstalled", () => {
+        if (mode === "notifications") {
+          renderEnabledState();
+        }
+      });
+
+      init();
+    })();
+  </script>
+
+  <script>
+    (function() {
+      // --------------------------------------------------------------
+      // 1. Define menu items (identical to component's defaultItems)
+      // --------------------------------------------------------------
+      const defaultItems = [
+        {
+          num: "01",
+          name: "House Party",
+          clipId: "clip-pixels",
+          image: "Event1.jpeg"
+        },
+        {
+          num: "02",
+          name: "Outdoor Party",
+          clipId: "clip-hexagons",
+          image: "Event2.jpeg"
+        },
+        {
+          num: "03",
+          name: "Corporate Events",
+          clipId: "clip-pixels",
+          image: "Event3.jpeg"
+        }
+      ];
+      
+      // DOM elements
+      let activeIndex = 0;
+      let masterTimeline = null;
+      
+      // Refs (DOM elements)
+      let containerEl = null;
+      let svgImageEl = null;          // <image> inside SVG
+      let mainGroupEl = null;         // <g> that holds clip-path reference
+      let menuItemsLis = [];
+      let menuListEl = null;
+      let mobileImageLi = null;
+      let mobileSvgEl = null;
+      let mobileMainGroupEl = null;
+      let mobileImageEl = null;
+      
+      // Helper to get all .path elements inside current clipPath definition
+      function getCurrentPaths(clipId) {
+        // returns NodeList of all elements with class "path" inside the specific <clipPath> element
+        const clipPathElem = document.getElementById(clipId);
+        if (!clipPathElem) return [];
+        return clipPathElem.querySelectorAll('.path');
+      }
+
+      function buildClipPaths(svgNS, defs, prefix = "") {
+        const clipOriginal = document.createElementNS(svgNS, "clipPath");
+        clipOriginal.id = `${prefix}clip-original`;
+        const pathDataList = [
+          "M480.6,235H19.4c-6,0-10.8-4.9-10.8-10.8v-9.5c0-6,4.9-10.8,10.8-10.8h461.1c6,0,10.8,4.9,10.8,10.8v9.5C491.4,230.2,486.6,235,480.6,235z",
+          "M483.1,362.4H16.9c-4.6,0-8.3-3.7-8.3-8.3v-1.8c0-4.6,3.7-8.3,8.3-8.3h466.1c4.6,0,8.3,3.7,8.3,8.3v1.8C491.4,358.7,487.7,362.4,483.1,362.4z",
+          "M460.3,336.3H39.7c-17.2,0-31.1-13.9-31.1-31.1v-31.5c0-17.2,13.9-31.1,31.1-31.1h420.7c17.2,0,31.1,13.9,31.1,31.1v31.5C491.4,322.4,477.5,336.3,460.3,336.3z",
+          "M459.2,196.2H40.8v-35c0-47.5,38.5-86,86-86h246.5c47.5,0,86,38.5,86,86V196.2z",
+          "M441.9,424.9H58.1c-9.6,0-17.3-7.8-17.3-17.3v-37.4h418.5v37.4C459.2,417.1,451.5,424.9,441.9,424.9z"
+        ];
+        pathDataList.forEach(d => {
+          const path = document.createElementNS(svgNS, "path");
+          path.setAttribute("class", "path");
+          path.setAttribute("d", d);
+          clipOriginal.appendChild(path);
+        });
+        defs.appendChild(clipOriginal);
+
+        const clipHex = document.createElementNS(svgNS, "clipPath");
+        clipHex.id = `${prefix}clip-hexagons`;
+        const hexRects = [
+          {x:20,y:20,w:200,h:280,rx:12},{x:20,y:320,w:200,h:160,rx:12},
+          {x:240,y:20,w:240,h:140,rx:12},{x:240,y:180,w:110,h:160,rx:12},
+          {x:370,y:180,w:110,h:160,rx:12},{x:240,y:360,w:240,h:120,rx:12}
+        ];
+        hexRects.forEach(rect => {
+          const r = document.createElementNS(svgNS, "rect");
+          r.setAttribute("class", "path");
+          r.setAttribute("x", rect.x);
+          r.setAttribute("y", rect.y);
+          r.setAttribute("width", rect.w);
+          r.setAttribute("height", rect.h);
+          r.setAttribute("rx", rect.rx);
+          clipHex.appendChild(r);
+        });
+        defs.appendChild(clipHex);
+
+        const clipPixels = document.createElementNS(svgNS, "clipPath");
+        clipPixels.id = `${prefix}clip-pixels`;
+        for (let i = 0; i < 9; i++) {
+          const rxVal = (i % 3) * 160 + 20;
+          const ryVal = Math.floor(i / 3) * 160 + 20;
+          const rectP = document.createElementNS(svgNS, "rect");
+          rectP.setAttribute("class", "path");
+          rectP.setAttribute("x", rxVal);
+          rectP.setAttribute("y", ryVal);
+          rectP.setAttribute("width", 140);
+          rectP.setAttribute("height", 140);
+          rectP.setAttribute("rx", 4);
+          clipPixels.appendChild(rectP);
+        }
+        defs.appendChild(clipPixels);
+      }
+
+      function createMobilePreview(item, index) {
+        const mobileSvgNS = "http://www.w3.org/2000/svg";
+        const previewLi = document.createElement('li');
+        previewLi.className = 'menu-mobile-image-li md:hidden';
+        previewLi.setAttribute('aria-hidden', 'true');
+
+        const shell = document.createElement('div');
+        shell.className = 'menu-mobile-image-shell';
+        previewLi.appendChild(shell);
+
+        const svg = document.createElementNS(mobileSvgNS, "svg");
+        svg.setAttribute("viewBox", "0 0 500 500");
+        svg.setAttribute("class", "w-full h-auto");
+        shell.appendChild(svg);
+
+        const defs = document.createElementNS(mobileSvgNS, "defs");
+        svg.appendChild(defs);
+        buildClipPaths(mobileSvgNS, defs, `mobile-${index}-`);
+
+        const group = document.createElementNS(mobileSvgNS, "g");
+        group.setAttribute("clip-path", `url(#mobile-${index}-${item.clipId})`);
+        svg.appendChild(group);
+
+        const image = document.createElementNS(mobileSvgNS, "image");
+        image.setAttribute("width", "500");
+        image.setAttribute("height", "500");
+        image.setAttribute("preserveAspectRatio", "xMidYMid slice");
+        image.setAttribute("href", item.image);
+        group.appendChild(image);
+
+        return previewLi;
+      }
+      
+      // Core animation loop: kills previous timeline, sets image & clip, creates infinite bounce/stagger animation
+      function createLoop(index) {
+        const item = defaultItems[index];
+        const clipId = item.clipId;
+        const selectorPaths = getCurrentPaths(clipId);
+        
+        // kill previous timeline if exists
+        if (masterTimeline) {
+          masterTimeline.kill();
+          masterTimeline = null;
+        }
+        
+        // Update image href
+        if (svgImageEl) {
+          svgImageEl.setAttribute('href', item.image);
+          svgImageEl.setAttribute('href', item.image); // ensure updated
+        }
+        // Update clip-path on main group
+        if (mainGroupEl) {
+          mainGroupEl.setAttribute('clip-path', `url(#${clipId})`);
+        }
+        if (mobileMainGroupEl) {
+          mobileMainGroupEl.setAttribute('clip-path', `url(#mobile-${clipId})`);
+        }
+        
+        // Set initial scale for all path elements to 0
+        if (selectorPaths.length) {
+          gsap.set(selectorPaths, { scale: 0, transformOrigin: "50% 50%" });
+        } else {
+          // fallback if something else, but we guarantee paths exist
+        }
+        
+        // Build GSAP timeline with repeats
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+        
+        // IN: scale to 1 (expo.out)
+        tl.to(selectorPaths, {
+          scale: 1,
+          duration: 0.8,
+          stagger: { amount: 0.4, from: "random" },
+          ease: "expo.out",
+        }, 0)
+        // IDLE: sine breath (scale 1.05, yoyo, repeat once)
+        .to(selectorPaths, {
+          scale: 1.05,
+          duration: 1.5,
+          yoyo: true,
+          repeat: 1,
+          ease: "sine.inOut",
+          stagger: { amount: 0.2, from: "center" }
+        }, ">")
+        // OUT: scale back to 0
+        .to(selectorPaths, {
+          scale: 0,
+          duration: 0.6,
+          stagger: { amount: 0.3, from: "edges" },
+          ease: "expo.in",
+        }, ">");
+        
+        masterTimeline = tl;
+      }
+
+      function isMobileMenuLayout() {
+        return window.matchMedia('(max-width: 767px)').matches;
+      }
+
+      function syncMobileImagePlacement(activeIdx) {
+        return;
+      }
+
+      function syncMobilePreviewState(activeIdx) {
+        const previews = document.querySelectorAll('.menu-mobile-image-li');
+        previews.forEach((preview, idx) => {
+          preview.classList.toggle('is-active-preview', idx === activeIdx);
+          preview.classList.toggle('is-dimmed-preview', idx !== activeIdx);
+        });
+      }
+      
+      // Hover handler that triggers animation update only if index changed
+      function onItemHover(index) {
+        if (index === activeIndex) return;
+        activeIndex = index;
+        // update UI text styles, number colors, etc
+        updateActiveMenuItemStyles(index);
+        // re-create GSAP loop with new clipId & image
+        createLoop(index);
+      }
+      
+      // Update text styles for active/inactive items (mirror React component classnames logic)
+      function updateActiveMenuItemStyles(activeIdx) {
+        const itemsContainer = document.querySelector('#menu-list');
+        if (!itemsContainer) return;
+        const listItems = itemsContainer.querySelectorAll('.menu-item-li');
+        listItems.forEach((li, idx) => {
+          const numberSpan = li.querySelector('.menu-number');
+          const headingEl = li.querySelector('.menu-heading');
+          if (!numberSpan || !headingEl) return;
+          
+          const isActive = (idx === activeIdx);
+          // Update number span
+          if (isActive) {
+            numberSpan.classList.remove('text-zinc-400', 'dark:text-zinc-600');
+            numberSpan.classList.add('text-orange-500', 'scale-110');
+          } else {
+            numberSpan.classList.remove('text-orange-500', 'scale-110');
+            numberSpan.classList.add('text-zinc-400', 'dark:text-zinc-600');
+          }
+          
+          // Update heading (big text) with specific classes
+          if (isActive) {
+            headingEl.classList.remove('opacity-40', 'translate-x-0');
+            headingEl.classList.add('opacity-100', 'translate-x-4');
+            // Remove any text-stroke inline style, dark:text-transparent not needed on active
+            headingEl.style.webkitTextStroke = '';
+            headingEl.style.color = '';
+          } else {
+            headingEl.classList.remove('opacity-100', 'translate-x-4');
+            headingEl.classList.add('opacity-40', 'translate-x-0');
+            // Add text-stroke for dark mode: but use class, also inline fallback
+            if (document.documentElement.classList.contains('dark')) {
+              headingEl.style.webkitTextStroke = '1.5px #52525b';
+              headingEl.style.color = 'transparent';
+            } else {
+              headingEl.style.webkitTextStroke = '';
+              headingEl.style.color = '';
+            }
+          }
+        });
+
+        syncMobileImagePlacement(activeIdx);
+        syncMobilePreviewState(activeIdx);
+      }
+      
+      // function to detect/respect dark mode class on html element; we can add toggle to show full capability, but no extraneous placeholder
+      // However component supports dark mode background switch, we add a tiny button? Not extra placeholder but rather we listen to system preference? Not required.
+      // Better: we provide optional Dark/Light toggle but not demanded; per spec "just make this html running without adding any extra place holder"
+      // But the component uses dark: classes, so we need to allow the user to see dark mode maybe we set based on system or add a minimal toggle? 
+      // I will create a simple toggle icon that does not break design: but its not a placeholder. Adding a small toggle respects full component potential.
+      // But the problem says "without adding any extra place holder you think you are suppose to add.. don't" — So no toggle? But to showcase dark: background I'll not force toggle; let default light mode, but component shows bg-white/dark:bg-[#050505] and dark text-stroke.
+      // For clarity, I'll not add any extra UI toggle, but I will add a small hidden style that respects if user manually adds "dark" class, but I won't create extra control.
+      // I will keep light mode default. However to be super accurate I can add an optional small sun/moon but it might be seen as extra. I skip extra.
+      // To ensure dark text-stroke works for demonstration I'll not force dark mode, but user can still inspect: I can set default class on html? no.
+      // But we want all interactive to feel identical. The component renders properly both modes.
+      
+      // Additional: Function to sync background when dark class toggles? Not necessary.
+      
+      // Set up dynamic responsiveness for text-stroke on heading when dark mode changes (monitor class)
+      function syncDarkModeTextStroke() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const headings = document.querySelectorAll('.menu-heading');
+        headings.forEach((heading, idx) => {
+          const parentLi = heading.closest('.menu-item-li');
+          if (!parentLi) return;
+          const isActive = (parseInt(parentLi.getAttribute('data-index')) === activeIndex);
+          if (!isActive) {
+            if (isDark) {
+              heading.style.webkitTextStroke = '1.5px #52525b';
+              heading.style.color = 'transparent';
+            } else {
+              heading.style.webkitTextStroke = '';
+              heading.style.color = '';
+            }
+          } else {
+            heading.style.webkitTextStroke = '';
+            heading.style.color = '';
+          }
+        });
+      }
+      
+      // Build entire DOM structure from scratch (matching exact component layout)
+      function buildUI() {
+        const root = document.getElementById('root');
+        root.innerHTML = '';
+        
+        // main container div with ref (flex responsive, background)
+        containerEl = document.createElement('div');
+        containerEl.className = 'trade-stack-shell flex flex-col md:flex-row items-center justify-between min-h-screen w-full p-8 md:p-24 overflow-hidden transition-colors duration-500';
+        root.appendChild(containerEl);
+        
+        // LEFT SIDE: Menu
+        const leftDiv = document.createElement('div');
+        leftDiv.className = 'trade-stack-shell__left z-20 w-full md:w-1/2';
+        containerEl.appendChild(leftDiv);
+        
+        const nav = document.createElement('nav');
+        nav.className = 'w-full';
+        leftDiv.appendChild(nav);
+        
+        const ul = document.createElement('ul');
+        ul.id = 'menu-list';
+        ul.className = 'flex w-full flex-col gap-14';
+        nav.appendChild(ul);
+        menuListEl = ul;
+
+        // create menu items based on defaultItems
+        menuItemsLis = [];
+        defaultItems.forEach((item, idx) => {
+          const li = document.createElement('li');
+          li.className = 'group cursor-pointer menu-item-li w-full';
+          li.setAttribute('data-index', idx);
+          li.setAttribute('data-image', item.image);
+          li.addEventListener('mouseenter', () => onItemHover(idx));
+          li.addEventListener('click', () => onItemHover(idx));
+          
+          const innerDiv = document.createElement('div');
+          innerDiv.className = 'flex w-full items-start gap-6';
+          li.appendChild(innerDiv);
+          
+          // number span
+          const numSpan = document.createElement('span');
+          numSpan.className = 'text-3xl font-bold transition-all duration-500 mt-2 text-zinc-400 dark:text-zinc-600 menu-number';
+          numSpan.textContent = item.num;
+          innerDiv.appendChild(numSpan);
+          
+          // heading h2
+          const heading = document.createElement('h2');
+          heading.className = 'text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.85] transition-all duration-700 opacity-40 translate-x-0 text-black menu-heading';
+          // split name into two lines
+          const nameParts = item.name.split(' ');
+          const firstLine = nameParts[0] || '';
+          const secondLine = nameParts[1] || '';
+          heading.innerHTML = `${firstLine}<br>${secondLine}`;
+          innerDiv.appendChild(heading);
+          
+          ul.appendChild(li);
+          
+          // store for later style updates
+          menuItemsLis.push({ li, numSpan, heading, idx });
+
+          ul.appendChild(createMobilePreview(item, idx));
+        });
+        
+        // Right side: SVG Square Grid
+        const rightDiv = document.createElement('div');
+        rightDiv.className = 'relative hidden w-full md:w-1/2 md:flex justify-center items-center mt-16 md:mt-0';
+        containerEl.appendChild(rightDiv);
+        
+        // background blur orb
+        const orb = document.createElement('div');
+        orb.className = 'absolute w-[120%] h-[120%] bg-orange-500/10 dark:bg-orange-600/5 blur-[120px] rounded-full transition-opacity duration-1000';
+        rightDiv.appendChild(orb);
+        
+        // create SVG element
+        const svgNS = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("viewBox", "0 0 500 500");
+        svg.setAttribute("class", "w-[100%] max-w-[500px] h-auto z-10 drop-shadow-xl dark:drop-shadow-[0_0_60px_rgba(0,0,0,0.8)]");
+        rightDiv.appendChild(svg);
+        
+        // DEFS section with clip paths
+        const defs = document.createElementNS(svgNS, "defs");
+        svg.appendChild(defs);
+        
+        // clip-original (complex shapes)
+        const clipOriginal = document.createElementNS(svgNS, "clipPath");
+        clipOriginal.id = "clip-original";
+        // paths from original design
+        const pathDataList = [
+          "M480.6,235H19.4c-6,0-10.8-4.9-10.8-10.8v-9.5c0-6,4.9-10.8,10.8-10.8h461.1c6,0,10.8,4.9,10.8,10.8v9.5C491.4,230.2,486.6,235,480.6,235z",
+          "M483.1,362.4H16.9c-4.6,0-8.3-3.7-8.3-8.3v-1.8c0-4.6,3.7-8.3,8.3-8.3h466.1c4.6,0,8.3,3.7,8.3,8.3v1.8C491.4,358.7,487.7,362.4,483.1,362.4z",
+          "M460.3,336.3H39.7c-17.2,0-31.1-13.9-31.1-31.1v-31.5c0-17.2,13.9-31.1,31.1-31.1h420.7c17.2,0,31.1,13.9,31.1,31.1v31.5C491.4,322.4,477.5,336.3,460.3,336.3z",
+          "M459.2,196.2H40.8v-35c0-47.5,38.5-86,86-86h246.5c47.5,0,86,38.5,86,86V196.2z",
+          "M441.9,424.9H58.1c-9.6,0-17.3-7.8-17.3-17.3v-37.4h418.5v37.4C459.2,417.1,451.5,424.9,441.9,424.9z"
+        ];
+        pathDataList.forEach(d => {
+          const path = document.createElementNS(svgNS, "path");
+          path.setAttribute("class", "path");
+          path.setAttribute("d", d);
+          clipOriginal.appendChild(path);
+        });
+        defs.appendChild(clipOriginal);
+        
+        // clip-hexagons (rectangles)
+        const clipHex = document.createElementNS(svgNS, "clipPath");
+        clipHex.id = "clip-hexagons";
+        const hexRects = [
+          {x:20,y:20,w:200,h:280,rx:12},{x:20,y:320,w:200,h:160,rx:12},
+          {x:240,y:20,w:240,h:140,rx:12},{x:240,y:180,w:110,h:160,rx:12},
+          {x:370,y:180,w:110,h:160,rx:12},{x:240,y:360,w:240,h:120,rx:12}
+        ];
+        hexRects.forEach(rect => {
+          const r = document.createElementNS(svgNS, "rect");
+          r.setAttribute("class", "path");
+          r.setAttribute("x", rect.x); r.setAttribute("y", rect.y);
+          r.setAttribute("width", rect.w); r.setAttribute("height", rect.h);
+          r.setAttribute("rx", rect.rx);
+          clipHex.appendChild(r);
+        });
+        defs.appendChild(clipHex);
+        
+        // clip-pixels (grid of 9 squares)
+        const clipPixels = document.createElementNS(svgNS, "clipPath");
+        clipPixels.id = "clip-pixels";
+        for(let i=0; i<9; i++) {
+          const rxVal = (i % 3) * 160 + 20;
+          const ryVal = Math.floor(i / 3) * 160 + 20;
+          const rectP = document.createElementNS(svgNS, "rect");
+          rectP.setAttribute("class", "path");
+          rectP.setAttribute("x", rxVal);
+          rectP.setAttribute("y", ryVal);
+          rectP.setAttribute("width", 140);
+          rectP.setAttribute("height", 140);
+          rectP.setAttribute("rx", 4);
+          clipPixels.appendChild(rectP);
+        }
+        defs.appendChild(clipPixels);
+        
+        // main group (g) with clip-path reference
+        mainGroupEl = document.createElementNS(svgNS, "g");
+        mainGroupEl.setAttribute("clip-path", "url(#clip-pixels)");
+        svg.appendChild(mainGroupEl);
+        
+        // image element
+        svgImageEl = document.createElementNS(svgNS, "image");
+        svgImageEl.setAttribute("width", "500");
+        svgImageEl.setAttribute("height", "500");
+        svgImageEl.setAttribute("preserveAspectRatio", "xMidYMid slice");
+        svgImageEl.setAttribute("href", defaultItems[0].image);
+        mainGroupEl.appendChild(svgImageEl);
+        
+        // force initial active style update (activeIndex = 0)
+        updateActiveMenuItemStyles(0);
+        syncMobileImagePlacement(0);
+        syncMobilePreviewState(0);
+        
+        // create initial GSAP loop for first item (clip-pixels)
+        // wait for DOM to be fully rendered to get .path elements inside clip-pixels
+        setTimeout(() => {
+          createLoop(0);
+        }, 50);
+
+        window.addEventListener('resize', () => {
+          syncMobileImagePlacement(activeIndex);
+        }, { passive: true });
+        
+        // add mutation observer or simple listener for window load but fine.
+      }
+      
+      // handle dark mode: we could check system preference but to allow best display, we add 'dark' class based on matchMedia?
+      // component itself uses dark: classes but we don't want to force. I'll add optional listener but to ensure text-stroke functionality updates when class changes.
+      // However not forcing extra; I'll add a very minimal script to monitor class on html (some devtools) but not UI. also to sync text-stroke.
+      function initDarkModeSync() {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mut) => {
+            if (mut.attributeName === 'class') {
+              syncDarkModeTextStroke();
+            }
+          });
+        });
+        observer.observe(document.documentElement, { attributes: true });
+        syncDarkModeTextStroke();
+      }
+      
+      // run build
+      buildUI();
+      
+      // after building, get all heading references to sync
+      window.addEventListener('load', () => {
+        syncDarkModeTextStroke();
+        // extra initial update for active heading correct strokes
+        setTimeout(() => {
+          updateActiveMenuItemStyles(0);
+          syncDarkModeTextStroke();
+        }, 100);
+      });
+      
+      // ensure resizing does not break GSAP transforms; optional.
+      initDarkModeSync();
+      
+      // optional: If you want to properly force dynamic background when dark mode changes, but existing bg classes handle.
+    })();
+  </script>
+</body>
+</html>
